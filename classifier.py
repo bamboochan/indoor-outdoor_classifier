@@ -12,6 +12,7 @@ make sure the graph final_output_graph.pb is in the same folder as this python f
 import os
 import numpy as np
 import tensorflow as tf
+import sys
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -72,7 +73,8 @@ if __name__ == "__main__":
   while True:
 
     print("Input absolute path to image file, or input q to exit:")
-    file_name = input()
+    file_name = sys.stdin.readline()[0:-1]
+
     if file_name == "q":
       break
 
@@ -82,7 +84,7 @@ if __name__ == "__main__":
       print('ERROR: File does not exist')
       continue
 
-    if extension not in ['.jpg', '.jpeg', '.bmp', '.gif', '.png']:
+    if extension.lower() not in ['.jpg', '.jpeg', '.bmp', '.gif', '.png']:
       print("ERROR: Format not supported. Supported formats: .jpg; .jpeg, .png, .bmp, .gif")
       continue
 
