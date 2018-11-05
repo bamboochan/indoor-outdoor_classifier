@@ -21,7 +21,7 @@ Please view report.txt for the details.
 ```
   python3 classifier.py
 ```
-  It will prompt you to enter a path to the image that you want to classify.
+  It will prompt you to enter a path to the image that you want to classify. Please don't add the escape character if a folder name has a space
 
 ### To use the classifier (Command line)
 1. download the classifier folder in [my google drive link](https://drive.google.com/drive/folders/1A0W2QiL8Ezp6WLynyinQAAkcXymGVV8e?usp=sharing)
@@ -30,7 +30,7 @@ Please view report.txt for the details.
 ./classifier
 ```
 
-It will prompt you to enter a path to the image that you want to classify.
+It will prompt you to enter a path to the image that you want to classify. Please don't add the escape character if a folder name has a space.
 
 ### To retrain the model and test it on a custom set of images
 1. clone the repository.
