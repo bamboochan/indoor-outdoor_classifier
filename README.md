@@ -24,8 +24,7 @@ Please view report.txt for the details.
   It will prompt you to enter a path to the image that you want to classify.
 
 ### To use the classifier (Command line)
-1. download the classifier folder in [my google drive link]
-(https://drive.google.com/drive/folders/1A0W2QiL8Ezp6WLynyinQAAkcXymGVV8e?usp=sharing)
+1. download the classifier folder in [my google drive link](https://drive.google.com/drive/folders/1A0W2QiL8Ezp6WLynyinQAAkcXymGVV8e?usp=sharing)
 2. run
 ```
 ./classifier
