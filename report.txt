@@ -1,0 +1,39 @@
+The first step of the project was to extract data from the youtube8m video dataset and
+split it into the training and testing data.
+To do this, I first downloaded the video-level data of the dataset. Then I wrote a parser
+to extract ids of videos with specific tags, such as "Bedroom", "Kitchen" and so on for indoors,
+and "Mountain", "River", "Beach" and similar for outdoors. This parser is the file "yt8m.py".
+Then I wrote the "extract_frames.py" script to extract 30 frames from each of the first 100 indoor
+videos, and similarly for the outdoors. I only used 100 videos instead of all the videos I got from
+the parser because opening a youtube link and loading the video takes some time.
+This script uses the ids saved by the "yt8m.py" script,
+converting them into youtube video urls. This gave me 3000 indoors images, and the same for outdoors.
+Unfortunately, this method results in some bad frames being extracted from the videos, since a lot of
+videos contain transitions, graphics, text on black screen and so on. So I manually inspected the 6000
+images and removed all the inappropriate ones I could find. Since I was going through the images very fast,
+It is very likely I have missed some incorrect images, so the dataset is still not 100% perfect.
+
+For the testing phase, it is crucial that all the ground truths are correct, and all the images are appropriate.
+This is why I adopted a slightly modified approach, manually selecting good videos
+and using OpenCV to extract frames from them. This is done with the "extract_frames_specific.py" script,
+which extracts frames from a specific video given by its url. After processing 5 indoor and 5 outdoor videos,
+I have arrived at 355 indoor testing images and 264 outdoor images -- sufficient amount for testing.
+
+To train a classifier, I used a pre-trained Inception v3 model by Google. This model is designed to
+place an image into one of 1000 categories. The second-to-last layer of this model represents the
+feature vector of an image, and can be used to effectively train an arbitrary image classifier.
+So I replaced the last layer from the Inception v3 model with my own fully connected layer with
+two output neurons. Then I used the pre-trained Inception v3 model to compute feature vectors of all training
+and testing images, and finally used those and the ground truths to train the final fully-connected layer.
+This approach gave me the 98.9% accuracy on the testing set. The training script if "train_network.py"
+
+Initially, the training script ran 4000 iterations of 100 random images in each iteration.
+Although at the end of the training iterations, it was getting 100% training accuracy,
+it only yielded a testing accuracy of about 94.6%. This was an instance of overfitting.
+After trying to reduce the number of training steps to different values, I discovered
+the optimal number to be about 100, where the testing accuracy went up to 98.9%.
+
+Finally, I wrote the the "classifier.py" script, which simply loads the saved model and runs it on arbitrary images.
+I also used PyInstaller to package the "classifier.py" script to run on any Mac OS X computer, without necessarily
+requiring python or tensorflow. Unfortunately, since python and tensorflow have to be essentially packaged into
+this tool, the resulting package is quite large -- almost 500Mb.
